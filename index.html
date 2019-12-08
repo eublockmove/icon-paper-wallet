@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+
+  <title>ICON Paper Wallet Generator</title>
+  <meta name="title" content="ICON Paper Wallet Generator">
+  <meta name="description" content="Get your friends and family a spanking brand new ICON Paper Wallet!">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/bootstrap.css">
+
+  <script src="./js/icon-sdk-js.js"></script>
+  <script src="./js/qrcode.js"></script>
+</head>
+
+<body>
+  <div style="width:720px">
+    <h1 class="text-center no-print">ICON Paper Wallet</h1>
+    <div class="wallet">
+      <img id="side" src="img/sidelogo1.png" class="blockmove" />
+      <div class="qrcode">
+        <div id="publicQr"></div>
+        <p class="sidetext">YOUR PUBLIC KEY</p>
+      </div>
+      <div class="iconlogo">
+        <img src="img/logo.png" />
+      </div>
+      <div class="qrcode">
+        <div id="privateQr"></div>
+        <p class="sidetext">YOUR PRIVATE KEY</p>
+      </div>
+      <div class="addresses">
+        <p>
+          <strong>Your Address:</strong>
+          <br />
+          <span id="publicKey"></span>
+        </p>
+        <p>
+          <strong>Your Private Key:</strong>
+          <br />
+          <span id="privateKey"></span>
+        </p>
+      </div>
+    </div>
+    <p class="p-4 text-center">
+      <button type="button" class="btn btn-primary no-print" onClick="print()">Print!</button>
+      <button type="button" class="btn btn-primary no-print" onClick="newWallet()">Generate another!</button>
+      <a class="btn btn-primary no-print" href="https://blockmove.eu/" role="button">Visit Blockmove</a>
+      <a class="btn btn-primary no-print" href="https://github.com/eublockmove/icon-paper-wallet" role="button">View source code</a>
+    </p>
+  </div>
+
+  <script>
+    const IconService = window['icon-sdk-js']
+    const {IconWallet} = IconService;
+
+    function newWallet() {
+
+      let img = 'img/sidelogo'+(Math.floor(Math.random() * 2) + 1 )+'.png'
+      
+      document.getElementById("side").src=img;
+
+      const wallet = IconWallet.create()
+      let publicKey = wallet.getAddress()
+      let privateKey = wallet.getPrivateKey()
+
+      document.getElementById("publicKey").textContent = publicKey;
+      document.getElementById("privateKey").textContent = privateKey;
+      document.getElementById("publicQr").innerHTML = ""
+      document.getElementById("privateQr").innerHTML = ""
+      // QR CODES
+      new QRCode(document.getElementById("publicQr"), {
+        width: 150,
+        height: 150,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        text: publicKey
+      });
+      new QRCode(document.getElementById("privateQr"), {
+        width: 150,
+        height: 150,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        text: privateKey
+      });
+
+    }
+    newWallet()
+  </script>
+
+</body>
+
+</html>
