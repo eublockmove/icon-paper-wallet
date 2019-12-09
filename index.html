@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <div style="width:720px">
+  <div class="generate">
     <h1 class="text-center no-print">ICON Paper Wallet</h1>
     <div class="wallet">
       <img id="side" src="img/sidelogo1.png" class="blockmove" />
@@ -70,7 +70,7 @@
       document.getElementById("privateKey").textContent = privateKey;
       document.getElementById("publicQr").innerHTML = ""
       document.getElementById("privateQr").innerHTML = ""
-      // QR CODES
+
       new QRCode(document.getElementById("publicQr"), {
         width: 150,
         height: 150,
