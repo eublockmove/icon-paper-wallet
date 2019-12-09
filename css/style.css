@@ -53,7 +53,7 @@
 
 .addresses p {
   font-size: 14px;
-  font-family: Menlo, Monaco, Consolas, Courier New, monospace
+  font-family: monaco, Consolas, Lucida Console, monospace
 }
 
 @media print
